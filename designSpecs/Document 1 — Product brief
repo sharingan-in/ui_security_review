@@ -1,0 +1,218 @@
+# Browser-Based Security Reviewer
+## Product Brief — Draft 0.1
+
+**Status:** Exploration and validation  
+**Primary audience:** Individual frontend developers  
+**Initial product scope:** Focused, passive security review  
+**Long-term ambition:** Authorized active verification and developer-focused remediation
+
+## 1. Executive summary
+
+Build a browser extension that helps frontend developers identify and understand security issues in the web applications they are viewing.
+
+The extension will inspect a limited set of browser-observable security signals and present evidence-backed findings, explain their significance, prioritize potential risk, and recommend practical improvements.
+
+The initial objective is not comprehensive vulnerability detection. It is to determine whether developers find a focused, trustworthy security review useful enough to incorporate into their development workflow.
+
+## 2. Problem statement
+
+Frontend developers regularly work with applications whose security properties they may not fully understand. Existing security tools can require specialist knowledge, additional configuration, access to source code, or a separate testing workflow.
+
+A developer may need to answer:
+
+- Are there obvious security issues in this running application?
+- What evidence supports each finding?
+- Is this a confirmed issue or only a potential risk?
+- How serious is it in context?
+- What should I change?
+- How can I verify that the fix worked?
+
+The product hypothesis is that a simpler, evidence-first workflow can reduce the effort required to understand and act on relevant security findings.
+
+These pain points are hypotheses to validate through interviews and product experiments, not established facts about all frontend developers.
+
+## 3. Product vision
+
+Make security review more accessible to developers by connecting observable security signals to understandable explanations and actionable remediation.
+
+**Proposed positioning:**
+
+A browser-based security reviewer that helps frontend developers understand what may be wrong, why it matters, and what to do next.
+
+## 4. Target user
+
+### Primary user
+
+An individual frontend developer who:
+
+- Builds or maintains web applications.
+- Regularly works with JavaScript, React, or similar frontend technologies.
+- Has some familiarity with web security but is not necessarily a security specialist.
+- Wants fast feedback without learning a complex security platform.
+- Can test applications they own or are authorized to assess.
+
+### Initial use cases
+
+- Reviewing a local development environment.
+- Checking a staging application before release.
+- Investigating a potential security issue in a running application.
+- Learning why a particular configuration or browser-visible pattern could be risky.
+- Verifying selected improvements after making a fix.
+
+### Secondary audiences
+
+Security engineers, small engineering teams, and developers learning secure coding are potential future segments. The initial product should not attempt to optimize for all of them simultaneously.
+
+## 5. Core product hypothesis
+
+Individual frontend developers will use a browser-based security reviewer repeatedly if it provides trustworthy, understandable findings and useful remediation guidance with less effort than their current workflow.
+
+This hypothesis has four components:
+
+1. Developers experience a meaningful, recurring problem.
+2. The extension can identify useful issues within a clearly defined scope.
+3. Evidence and explanations improve developer trust and actionability.
+4. Developers return to the tool and eventually demonstrate willingness to pay or recommend adoption.
+
+Each component must be evaluated separately.
+
+## 6. Initial product experience
+
+The proposed user journey is:
+
+1. The developer opens an application they own or are authorized to assess.
+2. The developer launches the extension and initiates a review.
+3. The extension performs a limited set of passive checks.
+4. The developer receives a prioritized report.
+5. Each finding provides supporting evidence, context, confidence, and remediation guidance.
+6. The developer investigates and applies a fix.
+7. Where supported, the developer reruns the relevant check to assess whether the issue has been resolved.
+
+The report should also explain what was not checked and what cannot be concluded from the available evidence.
+
+## 7. Initial scope
+
+### In scope
+
+- A small, explicitly defined set of high-confidence, browser-observable security checks.
+- Security-header and relevant transport-configuration observations.
+- Detection of selected insecure resource-loading patterns.
+- Selected cookie-attribute observations when sufficient evidence is available.
+- Identification of potentially sensitive values exposed through browser-accessible storage or client-side code, with appropriate contextual qualification.
+- Evidence-backed findings and understandable explanations.
+- Risk prioritization and confidence labels.
+- Actionable remediation recommendations.
+- Basic verification of supported findings.
+- Clear reporting of limitations and unassessed areas.
+
+The precise checks should be finalized after competitor research and a benchmark review.
+
+### Out of scope for the initial MVP
+
+- Comprehensive penetration testing.
+- Unrestricted active scanning or exploitation.
+- Automated testing of every application route or user role.
+- Claims that a website is secure because no issues were detected.
+- Guaranteed detection of XSS, authorization flaws, injection vulnerabilities, or business-logic issues from page inspection alone.
+- Automatic modification of production applications.
+- Automatic remediation without developer review.
+- Enterprise governance, centralized team administration, and compliance certification.
+- A complex multi-agent AI architecture introduced primarily for novelty.
+
+## 8. Product principles
+
+### Evidence before explanation
+
+Every reported issue should be linked to observable evidence. AI-generated explanations must not substitute for evidence.
+
+### Distinguish certainty levels
+
+Reports should differentiate confirmed issues, potential issues, informational observations, passed checks, and checks that were not assessed.
+
+A potential issue must not be presented as a confirmed vulnerability.
+
+### Actionability over volume
+
+A small number of relevant, trustworthy findings is preferable to a large number of low-value warnings.
+
+### Security and privacy by design
+
+The product should request only necessary permissions, explain what data is inspected or transmitted, and avoid collecting page content or secrets unnecessarily.
+
+Sensitive page content should not be sent to external AI services by default without an explicit, informed product decision and appropriate safeguards.
+
+### Transparent coverage
+
+The product must communicate what it inspected, what it did not inspect, and which conclusions cannot be drawn from a browser-only assessment.
+
+### Measurable quality
+
+Every detection capability should have defined expected behavior and a way to evaluate correctness, false positives, and regressions.
+
+## 9. Competitive differentiation hypothesis
+
+The product should not compete solely on the number of security checks or the use of AI.
+
+Potential differentiation areas:
+
+- Evidence that makes findings easy to verify.
+- Clear separation of confirmed findings and uncertain risks.
+- Developer-friendly explanations with practical remediation steps.
+- Efficient prioritization that minimizes unnecessary investigation.
+- Verification guidance that closes the loop after remediation.
+- Transparent scope and limitations.
+
+These are hypotheses, not proven differentiators. They must be compared with existing browser extensions and security platforms before being adopted as the product's positioning.
+
+## 10. Success metrics
+
+### Security quality
+
+- Precision and recall against a labeled benchmark.
+- False-positive rate.
+- Severity-assignment accuracy.
+- Evidence sufficiency and correctness.
+- Correctness of remediation recommendations.
+- Successful verification of selected fixes.
+- Regression rate across the benchmark.
+
+### User value
+
+- Time to first useful finding.
+- Percentage of findings rated actionable.
+- Developer comprehension of reported issues.
+- Time spent investigating findings.
+- Percentage of users who return.
+- Percentage of users who fix or verify relevant issues.
+
+### Commercial validation
+
+- Interviewees with recurring, demonstrated pain.
+- Qualified pilot participants.
+- Repeat usage during a pilot.
+- Willingness to pay demonstrated through concrete commitments.
+- Reasons for rejecting, abandoning, or recommending the product.
+
+## 11. Risks and assumptions
+
+| Risk | Response |
+|---|---|
+| Existing products already provide similar features | Benchmark competitors before choosing the differentiation strategy. |
+| False positives undermine trust | Use a narrow scope, evidence requirements, and labeled test cases. |
+| Browser visibility is mistaken for complete security coverage | Clearly disclose limitations and unassessed areas. |
+| AI produces unsupported security claims | Require grounded evidence and evaluate outputs systematically. |
+| Users find the extension interesting but do not return | Measure real repeat usage and remediation behavior. |
+| Sensitive application data is exposed | Minimize collection, transmission, retention, and permissions. |
+| Active testing affects applications unexpectedly | Introduce it only later with explicit authorization and controlled boundaries. |
+
+## 12. Decision principle
+
+Proceed beyond the validation prototype only if the product demonstrates:
+
+1. A meaningful problem for a clearly identified user segment.
+2. A measurable advantage over relevant existing alternatives.
+3. Acceptable security-finding accuracy within its declared scope.
+4. Evidence that users act on findings or return to the product.
+5. A plausible path to adoption or commercial value.
+
+The objective of the first draft is learning, not proving that the entire product vision is feasible.

@@ -1,0 +1,294 @@
+# Browser-Based Security Reviewer
+## Validation Plan — Draft 0.1
+
+**Duration:** Approximately four weeks for the initial validation cycle  
+**Owner:** Product builder  
+**Primary audience:** Individual frontend developers  
+**Goal:** Determine whether the proposed security-review experience is sufficiently useful, differentiated, trustworthy, and repeatable to justify further investment.
+
+## 1. Validation questions
+
+The initial validation cycle must answer five questions.
+
+1. **Problem:** Do frontend developers experience a recurring security-review problem?
+2. **Competition:** Are existing tools insufficient in a way that matters to the target user?
+3. **Technical feasibility:** Can a focused set of browser-observable issues be detected with acceptable accuracy?
+4. **User value:** Do evidence-backed explanations and remediation guidance improve the experience?
+5. **Adoption:** Will developers use the tool again and demonstrate concrete willingness to adopt or pay for it?
+
+A positive answer to only one question is insufficient to validate the complete product opportunity.
+
+## 2. Experiment 1 — Customer discovery
+
+**Timing:** Week 1  
+**Participants:** 15–20 frontend developers
+
+### Recruitment
+
+Prioritize developers who maintain React, JavaScript, or other modern web applications and who have encountered security reviews, security warnings, or application-hardening work.
+
+Include a mixture of security-aware developers and developers without specialist security experience.
+
+### Interview questions
+
+- Tell me about the last time you investigated a security issue in a web application.
+- How did you discover and verify the issue?
+- Which tools or workflows did you use?
+- What was difficult or time-consuming?
+- How did you distinguish a real issue from a false positive?
+- What did you do after discovering the issue?
+- Have you used a browser-based security extension? What was useful or frustrating?
+- Have you paid for security tooling, or does your employer make these purchasing decisions?
+
+Ask for specific examples of past behavior rather than relying on hypothetical enthusiasm.
+
+### Measures
+
+- Number of interviewees with a recent, concrete example of the problem.
+- Frequency with which the problem occurs.
+- Time or effort associated with the current workflow.
+- Satisfaction with existing tools.
+- Evidence of existing expenditure or willingness to adopt a new tool.
+
+### Proposed success threshold
+
+- At least 8 of 15–20 interviewees describe a recurring, concrete problem.
+- At least 5 express meaningful dissatisfaction with the current workflow.
+- At least 3 agree to participate in a follow-up prototype or report evaluation.
+
+### Decision
+
+If the problem is not recurring or developers are satisfied with existing tools, revisit the target segment or product positioning before building.
+
+## 3. Experiment 2 — Competitor benchmarking
+
+**Timing:** Weeks 1–2
+
+### Competitors to investigate
+
+- OWASP Penetration Testing Kit.
+- SecuriScan and other comparable browser security extensions.
+- Header Shield and related configuration-inspection extensions.
+- OWASP ZAP.
+- MDN HTTP Observatory.
+- Relevant source-code security tools where they overlap with the target workflow.
+
+Verify current capabilities, supported environments, permissions, pricing, privacy practices, and documented limitations.
+
+Do not assume that a competitor lacks a feature merely because it is not prominently advertised.
+
+### Comparison dimensions
+
+| Dimension | Evaluation question |
+|---|---|
+| Coverage | Which checks are supported, and what evidence do they use? |
+| Accuracy | How many valid issues are found, and how many false positives appear? |
+| Evidence | Can the user independently verify each finding? |
+| Remediation | Are recommendations correct and actionable? |
+| Usability | How much effort is required to obtain a useful result? |
+| Workflow | Can the developer move efficiently from finding to fix? |
+| Transparency | Are limitations and unassessed areas communicated clearly? |
+| Privacy | What page data is collected, transmitted, or retained? |
+| Adoption | Is the tool actively maintained and suitable for the intended audience? |
+
+### Method
+
+Use the same authorized, controlled applications and test cases wherever the products support comparable testing. Record unsupported checks as unsupported or unassessed, not as failures.
+
+### Proposed success threshold
+
+Identify at least one repeatable, user-relevant gap that is not adequately addressed by the evaluated alternatives and that appears feasible for a focused MVP to address.
+
+A different interface or an AI-generated summary alone does not satisfy this criterion unless users demonstrate that it materially improves outcomes.
+
+## 4. Experiment 3 — Technical benchmark
+
+**Timing:** Weeks 1–2
+
+### Objective
+
+Establish whether a limited set of security checks can produce trustworthy results before making broader claims about detection coverage.
+
+### Test corpus
+
+Use controlled training applications and a representative collection of intentionally vulnerable and secure examples.
+
+Each test case should have documented ground truth, expected behavior, relevant evidence, and the scope of the claim being evaluated.
+
+Include:
+
+- Positive cases containing the targeted issue.
+- Negative cases that resemble the issue but are safe.
+- Edge cases where the available evidence is ambiguous.
+- Cases where the issue cannot be assessed from the browser context.
+
+Do not include production applications without appropriate authorization.
+
+### Metrics
+
+**Precision**
+
+True positive findings divided by all reported positive findings.
+
+**Recall**
+
+True positive findings divided by all known positive cases within the declared scope.
+
+**False-positive rate**
+
+Safe negative cases incorrectly flagged divided by all evaluated safe negative cases.
+
+**Severity accuracy**
+
+Agreement between assigned severity and independently reviewed severity.
+
+**Evidence sufficiency**
+
+Percentage of findings for which reviewers agree that the supporting evidence is sufficient for the stated conclusion.
+
+### Proposed initial thresholds
+
+- At least 85% precision across the declared in-scope benchmark.
+- At least 80% recall for the specifically targeted checks.
+- At least 90% of findings contain evidence sufficient to support their stated conclusions.
+- No known critical false-positive behavior left unexplained in the initial test suite.
+
+These are provisional targets. Report sample sizes and confidence intervals where appropriate. A small benchmark cannot establish broad real-world reliability.
+
+Do not aggregate incompatible test categories into a single score that hides weak areas.
+
+### Decision
+
+If the thresholds are missed, narrow the supported checks, improve the evidence requirements, or revise the product claims before expanding coverage.
+
+## 5. Experiment 4 — Report usability
+
+**Timing:** Weeks 2–3  
+**Participants:** 8–12 frontend developers
+
+### Objective
+
+Determine whether an evidence-first report improves comprehension, trust, and remediation decisions.
+
+### Comparison
+
+Compare two report formats using equivalent security cases:
+
+- **Control:** Conventional finding, severity, and remediation reference.
+- **Variant:** Finding, evidence, confidence, contextual explanation, recommended action, and verification guidance.
+
+Rotate the order in which participants see the formats to reduce order effects.
+
+### Measures
+
+- Correct understanding of the issue.
+- Ability to identify an appropriate next step.
+- Trust in the finding after inspecting the evidence.
+- Ability to distinguish a confirmed issue from an uncertain one.
+- Time required to understand and investigate the finding.
+- Correctness of the participant's remediation decision.
+
+### Proposed success thresholds
+
+- At least 80% of reviewed findings are judged actionable.
+- At least 80% of tested issues are correctly understood.
+- Median investigation time improves by at least 25% compared with the control.
+- Participants can reliably distinguish uncertainty from confirmation.
+
+These results should be interpreted alongside participant feedback and the small sample size.
+
+## 6. Experiment 5 — Repeat usage and adoption
+
+**Timing:** Weeks 3–4  
+**Participants:** 10–15 qualified pilot users, ideally including some participants from earlier experiments
+
+### Objective
+
+Determine whether the product supports a repeatable workflow rather than a one-time demonstration.
+
+### Pilot observations
+
+- Did the participant use the product without prompting?
+- Did they return to review a different page, route, or application?
+- Did they investigate or fix a reported issue?
+- Did they verify a fix where the check supported verification?
+- What caused them to abandon or distrust a finding?
+- Would they miss the tool if it were unavailable?
+
+### Proposed success thresholds
+
+- At least 6 of 10 pilot users return for another meaningful use.
+- At least 4 users complete a remediation or verification workflow.
+- At least 3 users make a concrete commitment to further adoption, such as a paid pilot, an approved trial, or an agreed evaluation with a purchasing decision-maker.
+- At least one user makes a genuine paid commitment or secures a concrete purchasing trial before a commercial opportunity is treated as validated.
+
+Track the actual denominator and participant activity. Do not count passive sign-ups or positive feedback as repeat usage.
+
+A two-week pilot does not establish long-term retention or product-market fit.
+
+## 7. Four-week schedule
+
+| Period | Primary activity | Expected output |
+|---|---|---|
+| Week 1 | Interviews and competitor research | Problem evidence and initial competitive map |
+| Week 2 | Benchmark and report preparation | Labeled test cases and competitor scorecard |
+| Week 3 | Report usability experiment | Comparative user results and prioritized changes |
+| Week 4 | Small pilot and adoption assessment | Repeat-use evidence and initial commercial signals |
+
+This schedule is a planning target. If recruitment or benchmark preparation takes longer, preserve the quality of the experiments rather than rushing to meet the calendar.
+
+## 8. Go/no-go framework
+
+### Proceed
+
+Proceed to a focused implementation when:
+
+- The target user has a demonstrated, recurring problem.
+- A meaningful gap exists relative to relevant alternatives.
+- The initial checks meet their declared quality targets.
+- The report materially helps developers understand and act on findings.
+- Pilot users show repeat engagement and credible adoption interest.
+
+### Narrow or revise
+
+Revisit the scope or positioning when:
+
+- Some checks are reliable but others produce excessive false positives.
+- Developers value explanations but not the scanning experience.
+- The problem is real but concentrated in a narrower user segment.
+- The report improves comprehension but does not improve remediation decisions.
+- Users like the product but do not return.
+
+### Stop or pivot
+
+Do not continue investing in the same product direction if:
+
+- Interviews show little recurring pain.
+- Existing alternatives adequately solve the problem.
+- No defensible, user-relevant differentiation emerges.
+- Findings cannot meet reasonable accuracy and evidence standards.
+- Users do not act on findings or show credible repeat-use intent after meaningful iteration.
+
+## 9. Risk and ethics controls
+
+- Restrict testing to applications the user owns or is authorized to assess.
+- Keep the first phase passive.
+- Clearly distinguish observation from confirmed vulnerability.
+- Do not claim comprehensive security based on limited browser inspection.
+- Minimize collection and transmission of sensitive application data.
+- Obtain appropriate consent before collecting research or product-usage data.
+- Introduce active verification only after defining explicit authorization, scope, safety controls, and rollback expectations.
+
+## 10. Final validation deliverable
+
+At the end of the cycle, produce a concise decision report containing:
+
+1. Interview findings and recurring pain points.
+2. Competitor capability comparison.
+3. Benchmark results, including false positives and missed cases.
+4. Report usability results.
+5. Pilot engagement and adoption signals.
+6. Evidence supporting or contradicting each product hypothesis.
+7. A recommendation to proceed, narrow, pivot, or stop.
+
+The outcome should be a decision supported by evidence, not a predetermined justification for building the product.
